@@ -1,7 +1,7 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
-var SchoolsList = require("./components/SchoolsList.jsx");
-var schoolsStore = require("./stores/schoolsStore");
+var SchoolsList = require("./components/SchoolList.jsx");
+var schoolsStore = require("./stores/schoolsStores");
 var _schools = schoolsStore.getSchools();
 schoolsStore.onChange(function(schools){
     _schools = schools;
