@@ -1,0 +1,17 @@
+{
+  "name": "tutorialuno",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Paul"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/PaulvanMotman/Reactmania",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
