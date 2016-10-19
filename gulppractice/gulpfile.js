@@ -1,5 +1,9 @@
 var gulp = require('gulp');
 
-gulp.task('hello', function() {
-  console.log('Hello Paul');
+var sass = require('gulp-sass');
+
+gulp.task('sass', function() {
+  return gulp.src('app/scss/styles.scss')  // take these files from this source directory
+    .pipe(sass())   // compile these file into sass
+    .pipe(gulp.dest('app/css')) // put these files in this directory
 });
