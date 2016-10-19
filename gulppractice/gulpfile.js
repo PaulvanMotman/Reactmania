@@ -5,8 +5,12 @@ var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
+var imagemin = require('gulp-imagemin');
+var cache = require('gulp-cache');
 
 
+
+//AUTOMATIC RELOADING
 
 // browserSync reloads the browsers when changes are made
 gulp.task('browserSync', function() {
@@ -18,6 +22,8 @@ gulp.task('browserSync', function() {
   })
 })
 
+
+//OPTIMALIZATION --> TURN EVERYTHING INTO MINIFIED FILES
 
 // Gulp-useref concatenates any number of CSS and JavaScript 
 // files into a single file by looking for a comment that starts 
@@ -33,9 +39,31 @@ gulp.task('useref', function(){
     .pipe(gulp.dest('dist'))
 });
 
+// Since font files are already optimized, 
+// there's nothing more we need to do. 
+// All we have to do is to copy the fonts into dist.
+
+gulp.task('fonts', function() {
+  return gulp.src('app/fonts/**/*')
+  .pipe(gulp.dest('dist/fonts'))
+})
+
+// Minify png, jpg, gif and even svg with the help of gulp-imagemin.
+
+gulp.task('images', function(){
+  return gulp.src('app/images/**/*.+(png|jpg|jpeg|gif|svg)')
+  // Caching images that ran through imagemin
+  .pipe(cache(imagemin({
+  	// // within imagemin I can put in an object with options
+      interlaced: true
+    })))
+  .pipe(gulp.dest('dist/images'))
+});
 
 
+// COMPILING 
 
+// Complile scss into css
 gulp.task('sass', function() {
   return gulp.src('app/scss/**/*.scss')  // take these files from this source directory
     .pipe(sass())   // compile these file into sass
@@ -45,7 +73,7 @@ gulp.task('sass', function() {
     }))
 });
 
-///gulp watch
+/// WATCHING
 
 gulp.task('watch', ['browserSync', 'sass'], function(){
   gulp.watch('app/scss/**/*.scss', ['sass']); 
