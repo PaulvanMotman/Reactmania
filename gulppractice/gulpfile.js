@@ -7,6 +7,8 @@ var gulpIf = require('gulp-if');
 var cssnano = require('gulp-cssnano');
 var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
+var del = require('del');
+var runSequence = require('run-sequence');
 
 
 
@@ -72,6 +74,33 @@ gulp.task('sass', function() {
       stream: true
     }))
 });
+
+// DELETING ALL FILES IN DIST!
+gulp.task('clean:dist', function() {
+  return del.sync('dist');
+})
+
+// CLEAR CACHE
+
+gulp.task('cache:clear', function () {
+return cache.clearAll()
+})
+
+// SEQUENCE OF TASKS 
+
+gulp.task('default', function() {
+  runSequence(['sass', 'browserSync', 'watch'])
+})
+
+
+gulp.task('build', function() {
+  runSequence(
+    'clean:dist',
+    'sass',
+    // Run Sequence also allows you to run tasks simultaneously if you place them in an array:
+    ['useref', 'images', 'fonts'])
+})
+
 
 /// WATCHING
 
