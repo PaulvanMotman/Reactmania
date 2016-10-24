@@ -12,6 +12,8 @@ class Comment extends React.Component {
 		console.log("Removing comment")
 	}
 	save() {
+		var val = this.refs.newText.value
+		console.log(val)
 		this.setState({editing: false})
 	}
 	renderNormal() {
@@ -26,8 +28,8 @@ class Comment extends React.Component {
 	renderForm() {
 		return (
 			<div className="commentContainer">
-				<textarea defaultValue={this.props.children}></textarea>
-				<button onClick={this.save} className="button-succes">Save</button>
+				<textarea ref="newText" defaultValue={this.props.children}></textarea>
+				<button onClick={this.save} className="button-success">Save</button>
 			</div>
 			)
 	}
@@ -70,12 +72,22 @@ class Checkbox extends React.Component {
 
 
 class Container extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {comments: [
+			'I like bacon', 
+			'and cheeseee', 
+			'and hamburgers']
+		} 
+	}
 	render() {
 		return (
 			<div className="board">
-				<Comment>joehoe</Comment>
-				<Comment>hallooo</Comment>
-				<Comment>gekkie</Comment>
+				{
+					this.state.comments.map(function(item, i) {
+						return <Comment key={i}>{item}</Comment>
+					})
+				}
 				<Checkbox />
 			</div>
 		)
@@ -83,7 +95,6 @@ class Container extends React.Component {
 }
 
 
-
-ReactDOM.render(<Container />, document.getElementById('example')
+ReactDOM.render(<Container />, document.getElementById('container')
 )
 

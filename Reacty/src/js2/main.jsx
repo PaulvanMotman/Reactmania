@@ -36,6 +36,8 @@ var Comment = function (_React$Component) {
 	}, {
 		key: "save",
 		value: function save() {
+			var val = this.refs.newText.value;
+			console.log(val);
 			this.setState({ editing: false });
 		}
 	}, {
@@ -67,10 +69,10 @@ var Comment = function (_React$Component) {
 			return React.createElement(
 				"div",
 				{ className: "commentContainer" },
-				React.createElement("textarea", { defaultValue: this.props.children }),
+				React.createElement("textarea", { ref: "newText", defaultValue: this.props.children }),
 				React.createElement(
 					"button",
-					{ onClick: this.save, className: "button-succes" },
+					{ onClick: this.save, className: "button-success" },
 					"Save"
 				)
 			);
@@ -137,10 +139,14 @@ var Checkbox = function (_React$Component2) {
 var Container = function (_React$Component3) {
 	_inherits(Container, _React$Component3);
 
-	function Container() {
+	function Container(props) {
 		_classCallCheck(this, Container);
 
-		return _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).apply(this, arguments));
+		var _this3 = _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).call(this, props));
+
+		_this3.state = { comments: ['I like bacon', 'and cheeseee', 'and hamburgers']
+		};
+		return _this3;
 	}
 
 	_createClass(Container, [{
@@ -149,21 +155,13 @@ var Container = function (_React$Component3) {
 			return React.createElement(
 				"div",
 				{ className: "board" },
-				React.createElement(
-					Comment,
-					null,
-					"joehoe"
-				),
-				React.createElement(
-					Comment,
-					null,
-					"hallooo"
-				),
-				React.createElement(
-					Comment,
-					null,
-					"gekkie"
-				),
+				this.state.comments.map(function (item, i) {
+					return React.createElement(
+						Comment,
+						{ key: i },
+						item
+					);
+				}),
 				React.createElement(Checkbox, null)
 			);
 		}
@@ -172,6 +170,6 @@ var Container = function (_React$Component3) {
 	return Container;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Container, null), document.getElementById('example'));
+ReactDOM.render(React.createElement(Container, null), document.getElementById('container'));
 
 },{}]},{},[1]);
