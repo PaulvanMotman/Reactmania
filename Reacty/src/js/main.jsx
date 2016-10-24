@@ -1,11 +1,20 @@
 class Comment extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {editing: false} 
+		this.edit = this.edit.bind(this)
+		this.save = this.save.bind(this)
+	}
 	edit() {
-		alert("Editing comment")
+		this.setState({editing: true})
 	}
 	remove() {
-		alert("Removing comment")
+		console.log("Removing comment")
 	}
-	render() {
+	save() {
+		this.setState({editing: false})
+	}
+	renderNormal() {
 		return (
 			<div className="commentContainer">
 				<div className="commentText">{this.props.children}</div>
@@ -13,6 +22,21 @@ class Comment extends React.Component {
 				<button onClick={this.remove} className="button-danger">Remove</button>
 			</div>
 			)
+	}
+	renderForm() {
+		return (
+			<div className="commentContainer">
+				<textarea defaultValue={this.props.children}></textarea>
+				<button onClick={this.save} className="button-succes">Save</button>
+			</div>
+			)
+	}
+	render() {	
+		if (this.state.editing) {
+			return this.renderForm()
+		} else {
+			return this.renderNormal()
+		}
 	}
 }
 

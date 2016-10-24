@@ -12,25 +12,35 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Comment = function (_React$Component) {
 	_inherits(Comment, _React$Component);
 
-	function Comment() {
+	function Comment(props) {
 		_classCallCheck(this, Comment);
 
-		return _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this, props));
+
+		_this.state = { editing: false };
+		_this.edit = _this.edit.bind(_this);
+		_this.save = _this.save.bind(_this);
+		return _this;
 	}
 
 	_createClass(Comment, [{
 		key: "edit",
 		value: function edit() {
-			alert("Editing comment");
+			this.setState({ editing: true });
 		}
 	}, {
 		key: "remove",
 		value: function remove() {
-			alert("Removing comment");
+			console.log("Removing comment");
 		}
 	}, {
-		key: "render",
-		value: function render() {
+		key: "save",
+		value: function save() {
+			this.setState({ editing: false });
+		}
+	}, {
+		key: "renderNormal",
+		value: function renderNormal() {
 			return React.createElement(
 				"div",
 				{ className: "commentContainer" },
@@ -51,6 +61,29 @@ var Comment = function (_React$Component) {
 				)
 			);
 		}
+	}, {
+		key: "renderForm",
+		value: function renderForm() {
+			return React.createElement(
+				"div",
+				{ className: "commentContainer" },
+				React.createElement("textarea", { defaultValue: this.props.children }),
+				React.createElement(
+					"button",
+					{ onClick: this.save, className: "button-succes" },
+					"Save"
+				)
+			);
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			if (this.state.editing) {
+				return this.renderForm();
+			} else {
+				return this.renderNormal();
+			}
+		}
 	}]);
 
 	return Comment;
@@ -62,6 +95,7 @@ var Checkbox = function (_React$Component2) {
 	function Checkbox(props) {
 		_classCallCheck(this, Checkbox);
 
+		// In ES6, React components no longer autobind this to non React methods. Therefor:
 		var _this2 = _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this, props));
 
 		_this2.handleEvent = _this2.handleEvent.bind(_this2);
