@@ -64,11 +64,17 @@ var Checkbox = function (_React$Component2) {
 
 		var _this2 = _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this, props));
 
+		_this2.handleEvent = _this2.handleEvent.bind(_this2);
 		_this2.state = { checked: true };
 		return _this2;
 	}
 
 	_createClass(Checkbox, [{
+		key: "handleEvent",
+		value: function handleEvent() {
+			this.setState({ checked: !this.state.checked });
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var msg;
@@ -80,7 +86,7 @@ var Checkbox = function (_React$Component2) {
 			return React.createElement(
 				"div",
 				null,
-				React.createElement("input", { type: "checkbox", defaultChecked: this.state.checked }),
+				React.createElement("input", { type: "checkbox", onChange: this.handleEvent, defaultChecked: this.state.checked }),
 				React.createElement(
 					"h3",
 					null,

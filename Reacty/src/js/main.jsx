@@ -20,7 +20,12 @@ class Comment extends React.Component {
 class Checkbox extends React.Component {
 	constructor(props) {
 	  super(props)
+	  // In ES6, React components no longer autobind this to non React methods. Therefor:
+	  this.handleEvent = this.handleEvent.bind(this)
 	  this.state = {checked: true} 
+	}
+	handleEvent() {
+		this.setState({checked: !this.state.checked})
 	}
 	render() {
 		var msg
@@ -31,7 +36,7 @@ class Checkbox extends React.Component {
 		}
 		return (
 			<div>
-				<input type="checkbox" defaultChecked={this.state.checked}/>
+				<input type="checkbox" onChange={this.handleEvent} defaultChecked={this.state.checked}/>
 				<h3>Checkbox is {msg}</h3>
 			</div>
 		)
