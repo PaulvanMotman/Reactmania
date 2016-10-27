@@ -10,10 +10,11 @@ class Comment extends React.Component {
 	}
 	remove() {
 		console.log("Removing comment")
+		this.props.removeComment(this.props.index)
 	}
 	save() {
 		var val = this.refs.newText.value
-		console.log(val)
+		this.props.updateComment(this.props.index)
 		this.setState({editing: false})
 	}
 	renderNormal() {
@@ -74,20 +75,37 @@ class Checkbox extends React.Component {
 class Container extends React.Component {
 	constructor(props) {
 		super(props)
+		this.removeComment = this.removeComment.bind(this)
+		his.updateComment = this.updateComment.bind(this)
 		this.state = {comments: [
 			'I like bacon', 
 			'and cheeseee', 
 			'and hamburgers']
 		} 
 	}
+	removeComment(i) {
+		console.log("Removing comment " + i)
+		var comment = this.state.comments
+		comment.slice(i,1)
+		this.setState({comments: comment})
+	}
+	updateComment(newtext, i) {
+		console.log("Updating comment " + i)
+		var comment = this.state.comments
+		comment[i] = newtext
+		this.setState({comments: comment})
+	}
+	eachComment(text, i) {
+		return (
+			<Comment key={i} index={i} updateComment={updateComment} removeComment={removeComment}>
+				{item}
+			</Comment>
+		)
+	}
 	render() {
 		return (
 			<div className="board">
-				{
-					this.state.comments.map(function(item, i) {
-						return <Comment key={i}>{item}</Comment>
-					})
-				}
+				{this.state.comments.map(this.eachComment)}
 				<Checkbox />
 			</div>
 		)
