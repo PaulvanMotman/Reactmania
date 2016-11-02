@@ -20,6 +20,7 @@ var Comment = function (_React$Component) {
 		_this.state = { editing: false };
 		_this.edit = _this.edit.bind(_this);
 		_this.save = _this.save.bind(_this);
+		_this.remove = _this.remove.bind(_this);
 		return _this;
 	}
 
@@ -32,12 +33,13 @@ var Comment = function (_React$Component) {
 		key: "remove",
 		value: function remove() {
 			console.log("Removing comment");
+			this.props.removeCommentText(this.props.index);
 		}
 	}, {
 		key: "save",
 		value: function save() {
 			var val = this.refs.newText.value;
-			console.log(val);
+			this.props.updateCommentText(this.refs.newText.value, this.props.index);
 			this.setState({ editing: false });
 		}
 	}, {
@@ -144,24 +146,46 @@ var Container = function (_React$Component3) {
 
 		var _this3 = _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).call(this, props));
 
+		_this3.removeComment = _this3.removeComment.bind(_this3);
+		_this3.updateComment = _this3.updateComment.bind(_this3);
+		_this3.eachComment = _this3.eachComment.bind(_this3);
 		_this3.state = { comments: ['I like bacon', 'and cheeseee', 'and hamburgers']
 		};
 		return _this3;
 	}
 
 	_createClass(Container, [{
+		key: "removeComment",
+		value: function removeComment(i) {
+			console.log("Removing comment " + i);
+			var comment = this.state.comments;
+			comment.slice(i, 1);
+			this.setState({ comments: comment });
+		}
+	}, {
+		key: "updateComment",
+		value: function updateComment(newtext, i) {
+			console.log("Updating comment " + i);
+			var comment = this.state.comments;
+			comment[i] = newtext;
+			this.setState({ comments: comment });
+		}
+	}, {
+		key: "eachComment",
+		value: function eachComment(text, i) {
+			return React.createElement(
+				Comment,
+				{ key: i, index: i, updateCommentText: this.updateComment, removeCommentText: this.removeComment },
+				text
+			);
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return React.createElement(
 				"div",
 				{ className: "board" },
-				this.state.comments.map(function (item, i) {
-					return React.createElement(
-						Comment,
-						{ key: i },
-						item
-					);
-				}),
+				this.state.comments.map(this.eachComment),
 				React.createElement(Checkbox, null)
 			);
 		}

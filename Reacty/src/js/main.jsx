@@ -4,17 +4,18 @@ class Comment extends React.Component {
 		this.state = {editing: false} 
 		this.edit = this.edit.bind(this)
 		this.save = this.save.bind(this)
+		this.remove = this.remove.bind(this)
 	}
 	edit() {
 		this.setState({editing: true})
 	}
 	remove() {
 		console.log("Removing comment")
-		this.props.removeComment(this.props.index)
+		this.props.removeCommentText(this.props.index)
 	}
 	save() {
 		var val = this.refs.newText.value
-		this.props.updateComment(this.props.index)
+		this.props.updateCommentText(this.refs.newText.value, this.props.index)
 		this.setState({editing: false})
 	}
 	renderNormal() {
@@ -76,7 +77,8 @@ class Container extends React.Component {
 	constructor(props) {
 		super(props)
 		this.removeComment = this.removeComment.bind(this)
-		his.updateComment = this.updateComment.bind(this)
+		this.updateComment = this.updateComment.bind(this)
+		this.eachComment = this.eachComment.bind(this)
 		this.state = {comments: [
 			'I like bacon', 
 			'and cheeseee', 
@@ -97,8 +99,8 @@ class Container extends React.Component {
 	}
 	eachComment(text, i) {
 		return (
-			<Comment key={i} index={i} updateComment={updateComment} removeComment={removeComment}>
-				{item}
+			<Comment key={i} index={i} updateCommentText={this.updateComment} removeCommentText={this.removeComment}>
+				{text}
 			</Comment>
 		)
 	}
