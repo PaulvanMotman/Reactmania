@@ -88,7 +88,8 @@ class Container extends React.Component {
 	removeComment(i) {
 		console.log("Removing comment " + i)
 		var comment = this.state.comments
-		comment.slice(i,1)
+		console.log(comment)
+		console.log(comment.splice(i,1))
 		this.setState({comments: comment})
 	}
 	updateComment(newtext, i) {
