@@ -79,11 +79,14 @@ class Container extends React.Component {
 		this.removeComment = this.removeComment.bind(this)
 		this.updateComment = this.updateComment.bind(this)
 		this.eachComment = this.eachComment.bind(this)
-		this.state = {comments: [
-			'I like bacon', 
-			'and cheeseee', 
-			'and hamburgers']
+		this.add = this.add.bind(this)
+		this.state = {comments: []
 		} 
+	}
+	add(text) {
+		var comment = this.state.comments
+		comment.push(text)
+		this.setState({comments: comment})
 	}
 	removeComment(i) {
 		console.log("Removing comment " + i)
@@ -107,9 +110,12 @@ class Container extends React.Component {
 	}
 	render() {
 		return (
-			<div className="board">
-				{this.state.comments.map(this.eachComment)}
-				<Checkbox />
+			<div>
+				<button onClick={this.add.bind(null, 'bacon tuna')} className="button-info create">Add new</button>
+				<div className="board">
+					{this.state.comments.map(this.eachComment)}
+					<Checkbox />
+				</div>
 			</div>
 		)
 	}

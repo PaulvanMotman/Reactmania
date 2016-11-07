@@ -149,12 +149,20 @@ var Container = function (_React$Component3) {
 		_this3.removeComment = _this3.removeComment.bind(_this3);
 		_this3.updateComment = _this3.updateComment.bind(_this3);
 		_this3.eachComment = _this3.eachComment.bind(_this3);
-		_this3.state = { comments: ['I like bacon', 'and cheeseee', 'and hamburgers']
+		_this3.add = _this3.add.bind(_this3);
+		_this3.state = { comments: []
 		};
 		return _this3;
 	}
 
 	_createClass(Container, [{
+		key: "add",
+		value: function add(text) {
+			var comment = this.state.comments;
+			comment.push(text);
+			this.setState({ comments: comment });
+		}
+	}, {
 		key: "removeComment",
 		value: function removeComment(i) {
 			console.log("Removing comment " + i);
@@ -185,9 +193,18 @@ var Container = function (_React$Component3) {
 		value: function render() {
 			return React.createElement(
 				"div",
-				{ className: "board" },
-				this.state.comments.map(this.eachComment),
-				React.createElement(Checkbox, null)
+				null,
+				React.createElement(
+					"button",
+					{ onClick: this.add.bind(null, 'bacon tuna'), className: "button-info create" },
+					"Add new"
+				),
+				React.createElement(
+					"div",
+					{ className: "board" },
+					this.state.comments.map(this.eachComment),
+					React.createElement(Checkbox, null)
+				)
 			);
 		}
 	}]);
