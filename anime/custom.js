@@ -1,34 +1,74 @@
 var blueAnimation = anime({
     targets: '.blue',
+    easing: 'easeInOutBack',
+    duration: 1000,
     translateX: 500,
     direction: 'alternate',
+    loop: true, 
     autoplay: false
-});
+})
 
 var redAnimation = anime({
     targets: '.red',
-    translateX: 500,
+    easing: 'easeInOutBack',
+    duration: 1000,
+    scale: {
+      value: 3,
+      delay: 150,
+      duration: 850,
+      easing: 'easeInOutExpo',
+    },
+    translateX: 100,
     direction: 'alternate',
+    loop: true, 
     autoplay: false
-});
+})
 
 var greenAnimation = anime({
     targets: '.green',
-    translateX: 500,
+    easing: 'easeInOutBack',
+    duration: 500,
+    translateX: 1000,
     direction: 'alternate',
-    autoplay: false
-});
+    loop: true, 
+    autoplay: false,
+    rotate: {
+        value: 7200,
+        duration: 500,
+        easing: 'easeInOutBack'
+    }
+})
 
-blueAnimation.settings.complete = function() {
-    greenAnimation.restart();
+var clicked = {
+    green: false,
+    red: false,
+    blue: false
 }
 
-redAnimation.settings.complete = function() {
-    blueAnimation.restart();
+
+function click (click, animation) {
+    if (!clicked[click]) {
+        clicked[click] = true
+        animation.play()
+    } else {
+        clicked[click] = false
+        animation.pause()
+    }
 }
 
-greenAnimation.settings.complete = function() {
-    redAnimation.restart();
-}
+$('.green').click( function () {
+    click('green', greenAnimation)
 
-greenAnimation.play();
+})
+
+$('.blue').click( function () {
+    click('blue', blueAnimation)
+})
+
+$('.red').click( function () {
+    click('red', redAnimation)
+    console.log(clicked.red)
+})
+
+
+
