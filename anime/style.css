@@ -49,10 +49,14 @@ body {
 
 #panel {
 	width: 20vh;
-	height: 25vh;
+	height: 50vh;
 	border-style: outset;
 	background-color: white;
 	z-index: 10;
+}
+
+#panel input {
+	width: 18vh;
 }
 
 #container {

@@ -7,10 +7,16 @@
 <body>
 
 	<div id="panel">
-		<input id="start" type="button" value="START"></input>
+		<form id="start">
+			<label>Username:</label>
+			<input type="text" id="username" required pattern=".{3,8}" title="3 to 8 characters" placeholder="Enter your username">
+			<input id="button" type="submit" value="START">
+		</form>
 		<hr>
-		<p>Time: <span id="time"></span></p>
-		<p>Score: <span id="score"></span></p>
+		<p>Your score: <span id="score"></span></p>
+		<hr>
+		<h5>HIGHSCORES:</h5>
+		<div id="highscores"></div>
 		<hr>
 	</div>
 
@@ -48,6 +54,7 @@
 	  	<path id ="path4" d='M84 284 L94 -176 L158 270 L234 148 L-346 33 L400 -105 L264 273 L188 -22 L146 79 L-344 -78 L-48 -102 L-144 -134 L-222 270 L-312 -190 L-270 -124 L442 128 L-332 -8 L-152 47 L-118 100 L-76 160 L-38 218 Z' />
 	</svg>
 
+<script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
 <script
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
